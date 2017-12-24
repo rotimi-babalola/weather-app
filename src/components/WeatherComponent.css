@@ -13,3 +13,7 @@
     padding: 10px;
     cursor: pointer;
 }
+
+.temperature-display {
+    margin-bottom: 10px;
+}

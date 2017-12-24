@@ -23,7 +23,7 @@ const WeatherComponent = (props) => {
                 <h5>{date}</h5>
                 <h5>{time}</h5>
                 <img alt='Weather icon' src={imageUrl} />
-                <section>
+                <section className="temperature-display">
                     <span>{Math.round(minTemp)}°&nbsp;</span>
                     <span>{Math.round(maxTemp)}°</span>
                 </section>

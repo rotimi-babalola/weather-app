@@ -12,9 +12,11 @@ class AppStore {
     @observable longitude;
     @observable weatherData;
     @observable isLoading = true;
+    @observable observableMonthDayArray = [];
 
     @computed get getSummarizedWeatherData() {
         const summarizedDataArray = [];
+        const monthDayArray = [];
         let currentMonthDay;
         this.weatherData.forEach((element) => {
             // get month day for weather data element
@@ -22,13 +24,23 @@ class AppStore {
             if (summarizedDataArray.length === 0) {
                 summarizedDataArray.push(element);
                 currentMonthDay = moment(summarizedDataArray[summarizedDataArray.length-1].dt_txt).format('D');
+                monthDayArray.push(currentMonthDay);
             } else if (moment(element.dt_txt).format('D') !== currentMonthDay) {
                 // push element into array if monthday of element is new
                 summarizedDataArray.push(element);
                 currentMonthDay = moment(summarizedDataArray[summarizedDataArray.length-1].dt_txt).format('D');
+                monthDayArray.push(currentMonthDay);
             }
         });
+
+        // set month day array to contain month days from data
+        // not allowed to change state inside computed
+        this.setObservableMonthDayArray(monthDayArray);
         return summarizedDataArray;
+    }
+
+    @action setObservableMonthDayArray = (data) => {
+        this.observableMonthDayArray = data;
     }
 
     @action setLatLong = (latitude, longitude) => {
