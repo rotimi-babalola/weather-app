@@ -24,7 +24,11 @@ class App extends Component {
         <section className="weather">
           {
             AppStore.getSummarizedWeatherData.map((data, index) => {
-              return <WeatherComponent data={data} key={index} />;
+              return <WeatherComponent 
+                        data={data} 
+                        key={index} 
+                        id={index} 
+                        showLink={true} />;
             })
           }
         </section>

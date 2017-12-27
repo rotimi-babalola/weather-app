@@ -1,5 +1,7 @@
-class WeatherUtils {
-    static FormatDate(dateString) {
+import moment from 'moment';
+
+class DateUtils {
+    static formatDate(dateString) {
         /**
          * first split the dateString on white space
          * open weather api returns date in this format
@@ -11,6 +13,10 @@ class WeatherUtils {
             time,
         };
     }
+
+    static getMonthDay(dateString) {
+        return moment(dateString).format('D');
+    }
 }
 
-export default WeatherUtils;
+export default DateUtils;

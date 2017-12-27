@@ -2,18 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import './WeatherComponent.css';
-import WeatherUtils from './../utils/WeatherUtils';
+import DateUtils from './../utils/DateUtils';
 
 const propTypes = {
     data: PropTypes.object,
     dt_txt: PropTypes.string,
+    id: PropTypes.number,
+    showLink: PropTypes.bool,
 };
 
 const WeatherComponent = (props) => {
     const icon = props.data.weather[0].icon;
-    const minTemp = props.data.main.temp_min;
-    const maxTemp = props.data.main.temp_max;
-    const { date, time } = WeatherUtils.FormatDate(props.data.dt_txt);
+    const { temp_min, temp_max } = props.data.main;
+    const { date, time } = DateUtils.formatDate(props.data.dt_txt);
 
     const imageUrl = `http://openweathermap.org/img/w/${icon}.png`;
 
@@ -24,10 +25,10 @@ const WeatherComponent = (props) => {
                 <h5>{time}</h5>
                 <img alt='Weather icon' src={imageUrl} />
                 <section className="temperature-display">
-                    <span>{Math.round(minTemp)}°&nbsp;</span>
-                    <span>{Math.round(maxTemp)}°</span>
+                    <span>{Math.round(temp_min)}°&nbsp;</span>
+                    <span>{Math.round(temp_max)}°</span>
                 </section>
-                <Link to='/day/1'>Get More Info</Link>
+                {props.showLink ? <Link to={`/day/${props.id + 1}`}>Get More Info</Link> : null}
             </article>
         </div>
     );
