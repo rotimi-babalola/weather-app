@@ -38,15 +38,15 @@ class NameOfDay extends Component {
          */
 
         const index = parseInt(this.props.match.params.nameOfDay, 10) - 1;
-        const weatherForDay = this.nameOfDayStore.getDataForMonthDay(this.props.store.weatherData, index);
+        const { weatherDataForMonthDay, date } = this.nameOfDayStore.getDataForMonthDay(this.props.store.weatherData, index);
 
         // todo we need to use the id param to get the appropriate data for each day
         return (
             <div className="App">
-            <h1>Placeholder Month 2017/2018</h1>
+                <h1>Weather Forecast for {date}</h1>
                 <section className="weather">
                     {
-                        weatherForDay.map((data, index) => {
+                        weatherDataForMonthDay.map((data, index) => {
                             return <WeatherComponent
                                 data={data}
                                 key={index}
